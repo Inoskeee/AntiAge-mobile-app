@@ -55,6 +55,8 @@ public class AuthManager : MonoBehaviour
                 Email = Email.text,
                 Password = hashedPassword,
                 Age = int.Parse(Age.text),
+                Symptoms = new List<string> {"okey","fff" },
+                Cases = new List<string> {"ppp","bro" }
             };
 
             string json = JsonUtility.ToJson(user);
@@ -153,8 +155,18 @@ public class AuthManager : MonoBehaviour
                 {
                     UserHelper.Instance.Email = snapshot.Child("Email").Value.ToString();
                     UserHelper.Instance.Name = snapshot.Child("Name").Value.ToString();
+                    UserHelper.Instance.Surname = snapshot.Child("Surname").Value.ToString();
                     UserHelper.Instance.Age = int.Parse(snapshot.Child("Age").Value.ToString());
                     UserHelper.Instance.Password = snapshot.Child("Password").Value.ToString();
+
+                    for (int i = 0; i < snapshot.Child("Symptoms").ChildrenCount; i++)
+                    {
+                        UserHelper.Instance.Symptoms.Add(snapshot.Child("Symptoms").Child(i.ToString()).Value.ToString());
+                    }
+                    for (int i = 0; i < snapshot.Child("Cases").ChildrenCount; i++)
+                    {
+                        UserHelper.Instance.Cases.Add(snapshot.Child("Cases").Child(i.ToString()).Value.ToString());
+                    }
                     AuthErrorProvider.gameObject.SetActive(false);
                     Debug.Log("Successful Autorization");
                     SceneManager.LoadScene(1);
