@@ -1,17 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScrollViewAdapter : MonoBehaviour
 {
     public RectTransform prefab;
-    public int countText;
     public RectTransform content;
+
+    private string path = "Assets/Resources/MetaData/Facts.json";
+    private Facts[] facts;
 
     public void Updateitems()
     {
-        int modelsCount = countText;
+        facts = GetFactsList();
+        int modelsCount = facts.Length;
         StartCoroutine(GetItems(modelsCount, results => OnReceivedModels(results)));
     }
 
@@ -46,11 +52,17 @@ public class ScrollViewAdapter : MonoBehaviour
         for(int i = 0; i < count; i++)
         {
             results[i] = new ScrollViewModel();
-            results[i].title = $"Статья {i + 1}";
-            results[i].buttonText = $"Информация о статье № {i + 1}";
+            results[i].title = "Статья \"" + facts[i].title + "\"";
+            results[i].buttonText = facts[i].description_text;
         }
 
         callback(results);
+    }
+
+    Facts[] GetFactsList()
+    {
+        string json = File.ReadAllText(path, Encoding.GetEncoding("utf-8"));
+        return JsonHelper.FromJson<Facts>(json);
     }
 }
 
@@ -69,5 +81,43 @@ public class ScrollViewItem
     {
         titleText = rootView.Find("TitleText").GetComponent<Text>();
         clickButton = rootView.Find("ClickButton").GetComponent<Button>();
+    }
+}
+
+[Serializable]
+public class Facts
+{
+    public string image_path { get; set; }
+    public string title { get; set; }
+    public string description_text { get; set; }
+    public string text { get; set; }
+}
+
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.Items;
+    }
+
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.Items = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+
+    [Serializable]
+    private class Wrapper<T>
+    {
+        public T[] Items;
     }
 }
