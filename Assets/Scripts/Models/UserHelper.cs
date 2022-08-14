@@ -11,8 +11,11 @@ public class UserHelper : MonoBehaviour
     public string Password; //Пароль
 
     public string Name;     //Имя
+    public string Surname;     //Имя
     public int Age;     //Возраст
     public int Height; //Рост
+    public List<string> Symptoms; //Симптомы
+    public List<string> Cases; //Дела
 
     void Awake()
     {
