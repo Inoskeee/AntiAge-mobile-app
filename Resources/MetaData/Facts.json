@@ -1,0 +1,34 @@
+{
+  "Items": [
+    {
+      "image_path": "https://www.pictures.com/pic1.png",
+      "title": "О красоте здоровья",
+      "description_text": "Будьте красивыми",
+      "text": "sdsdsdsdsadasdasdsadasdasdasdasasdasdasdasd"
+    },
+    {
+      "image_path": "https://www.pictures.com/pic2.png",
+      "title": "О красоте жизни",
+      "description_text": "Будьте здоровыми",
+      "text": "sdsdsdsdsadasdasdsadasdasdasdasasdasdasdasd"
+    },
+    {
+      "image_path": "https://www.pictures.com/pic3.png",
+      "title": "О красоте ума",
+      "description_text": "Будьте умными",
+      "text": "sdsdsdsdsadasdasdsadasdasdasdasasdasdasdasd"
+    },
+    {
+      "image_path": "https://www.pictures.com/pic4.png",
+      "title": "О красоте возраста",
+      "description_text": "Будьте в не возраста",
+      "text": "sdsdsdsdsadasdasdsadasdasdasdasasdasdasdasd"
+    },
+    {
+      "image_path": "https://www.pictures.com/pic5.png",
+      "title": "О красоте пола",
+      "descrption_text": "Будьте женственными",
+      "text": "sdsdsdsdsadasdasdsadasdasdasdasasdasdasdasd"
+    }
+  ]
+}
